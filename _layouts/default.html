@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">    
+    <title>{{page.title}} | {{site.name}}</title>
+    
+    {% seo %}
+    
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <link rel="shortcut icon" type="image/x-icon" href="{{site.baseurl}}/{{site.favicon}}">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  
+    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/bootstrap.css">
+    
+    <link rel="stylesheet" href="{{site.baseurl}}/assets/css/theme.css">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    
+    {% include tracking-header.html %}
+    
+</head>
+    
+<body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <a class="navbar-brand font-weight-bolder mr-3" href="{{site.baseurl}}/index.html"><img src="{{site.baseurl}}/{{site.logo}}"></a>
+    <button class="navbar-light navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsDefault" aria-controls="navbarsDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsDefault">        
+    	<ul class="navbar-nav mr-auto align-items-center">            
+            {% include search-lunr.html %}    		
+    	</ul>
+    	<ul class="navbar-nav ml-auto align-items-center">
+    		{% include menu-header.html %}
+    	</ul>
+    </div>
+    </nav>
+    
+    <div id="lunrsearchresults">
+        <ul class="mb-0"></ul>
+    </div>
+    
+    <main role="main">        
+        {{ content }}        
+    </main>
+    
+    <footer class="footer pt-5 pb-5 text-center">        
+    <div class="container">        
+          <div class="socials-media">    
+            <ul class="list-unstyled">
+              {% include footer-social.html %}
+            </ul>    
+          </div>
+          {% include footer-copyright.html %}
+        </div>
+    </footer>
+    
+   
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    
+    <script src="{{site.baseurl}}/assets/js/theme.js"></script>
+    
+    <script src="{{site.baseurl}}/assets/js/lunr.js"></script>
+    
+    {% include tracking-footer.html %}
+    
+<!-- ============================================
+     REFERSATHI — Welcome Popup + Falling $100 Notes
+     ============================================ -->
+
+<!-- 1. SPLASH POPUP -->
+<div id="rs-splash" class="rs-splash" aria-hidden="true">
+  <div class="rs-splash-inner">
+    <img src="{{ site.baseurl }}/assets/images/popup.png" alt="Welcome to ReferSathi" class="rs-splash-img">
+
+    <!-- Countdown ring -->
+    <div class="rs-splash-countdown" aria-hidden="true">
+      <svg viewBox="0 0 44 44" class="rs-ring">
+        <circle class="rs-ring-track" cx="22" cy="22" r="18"></circle>
+        <circle class="rs-ring-progress" cx="22" cy="22" r="18"></circle>
+      </svg>
+      <span class="rs-ring-number">5</span>
+    </div>
+
+    <button type="button" class="rs-splash-close" aria-label="Close" onclick="rsCloseSplash()">&times;</button>
+  </div>
+</div>
+
+<!-- 2. MONEY RAIN LAYER -->
+<div id="rs-money-rain" aria-hidden="true"></div>
+
+<style>
+/* ============================================
+   SPLASH POPUP
+   ============================================ */
+.rs-splash {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+    padding: 24px;
+}
+
+.rs-splash.rs-splash-show {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.rs-splash-inner {
+    position: relative;
+    max-width: 880px;
+    width: 100%;
+    max-height: 90vh;
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.4);
+    transform: scale(0.92);
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.rs-splash.rs-splash-show .rs-splash-inner {
+    transform: scale(1);
+}
+
+.rs-splash-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 90vh;
+    object-fit: contain;
+    background: #fff;
+}
+
+/* Countdown ring */
+.rs-splash-countdown {
+    position: absolute;
+    top: 14px;
+    right: 58px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.rs-ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.rs-ring-track {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.18);
+    stroke-width: 3;
+}
+
+.rs-ring-progress {
+    fill: none;
+    stroke: #38ef7d;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 113;
+    stroke-dashoffset: 0;
+    transition: stroke-dashoffset 1s linear;
+}
+
+.rs-ring-number {
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    z-index: 2;
+}
+
+/* Close button */
+.rs-splash-close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.rs-splash-close:hover {
+    background: rgba(0, 0, 0, 0.85);
+    transform: scale(1.08);
+}
+
+/* ============================================
+   MONEY RAIN
+   ============================================ */
+.rs-money-layer {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+}
+
+.rs-money-note {
+    position: absolute;
+    top: -140px;
+    width: 90px;
+    height: auto;
+    opacity: 0.95;
+    will-change: transform, opacity;
+    animation-name: rsMoneyFall;
+    animation-timing-function: cubic-bezier(0.35, 0.15, 0.6, 0.9);
+    animation-fill-mode: forwards;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.18));
+    user-select: none;
+    pointer-events: none;
+}
+
+@keyframes rsMoneyFall {
+    0% {
+        transform: translate3d(0, -10vh, 0) rotate(0deg) scale(var(--rs-scale, 1));
+        opacity: 0;
+    }
+    8% {
+        opacity: 1;
+    }
+    50% {
+        transform: translate3d(var(--rs-drift, 40px), 50vh, 0)
+                   rotate(calc(var(--rs-rot, 180deg) * 0.5))
+                   scale(var(--rs-scale, 1));
+    }
+    100% {
+        transform: translate3d(calc(var(--rs-drift, 40px) * 1.6), 115vh, 0)
+                   rotate(var(--rs-rot, 360deg))
+                   scale(var(--rs-scale, 1));
+        opacity: 0;
+    }
+}
+
+/* ============================================
+   MOBILE
+   ============================================ */
+@media (max-width: 576px) {
+    .rs-splash-inner { max-width: 96vw; border-radius: 16px; }
+    .rs-splash-countdown { width: 44px; height: 44px; top: 10px; right: 52px; }
+    .rs-ring-number { font-size: 14px; }
+    .rs-splash-close { width: 32px; height: 32px; font-size: 20px; top: 10px; right: 10px; }
+    .rs-money-note { width: 62px; }
+}
+</style>
+
+<script>
+/* ============================================
+   MONEY RAIN ENGINE
+   ============================================ */
+(function() {
+    var RAIN_DURATION = 4000;      // total effect length in ms
+    var NOTE_COUNT    = 40;        // how many notes to drop
+    var NOTE_IMG      ='{{ site.baseurl }}/assets/images/money-100.png';
+    var TRIGGERED     = false;
+
+    function startMoneyRain() {
+        if (TRIGGERED) return;
+        TRIGGERED = true;
+
+        var layer = document.getElementById('rs-money-rain');
+        if (!layer) return;
+        layer.classList.add('rs-money-layer');
+
+        for (var i = 0; i < NOTE_COUNT; i++) {
+            spawnNote(layer, i);
+        }
+
+        setTimeout(function() {
+            layer.innerHTML = '';
+            layer.classList.remove('rs-money-layer');
+            TRIGGERED = false;
+        }, RAIN_DURATION + 500);
+    }
+
+    function spawnNote(layer, index) {
+        var note = document.createElement('img');
+        note.src = NOTE_IMG;
+        note.alt = '';
+        note.className = 'rs-money-note';
+
+        var startX   = Math.random() * 100;
+        var scale    = 0.7 + Math.random() * 0.6;
+        var drift    = (Math.random() - 0.5) * 160;
+        var rot      = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 540);
+        var delay    = Math.random() * 1200;
+        var duration = 2600 + Math.random() * 1400;
+
+        note.style.left = startX + 'vw';
+        note.style.width = (72 + Math.random() * 48) + 'px';
+        note.style.setProperty('--rs-scale', scale);
+        note.style.setProperty('--rs-drift', drift + 'px');
+        note.style.setProperty('--rs-rot', rot + 'deg');
+        note.style.animationDuration = duration + 'ms';
+        note.style.animationDelay = delay + 'ms';
+
+        layer.appendChild(note);
+    }
+
+    window.rsStartMoneyRain = startMoneyRain;
+})();
+
+/* ============================================
+   SPLASH POPUP ENGINE
+   ============================================ */
+(function() {
+    var KEY = 'rs_splash_seen';
+    if (sessionStorage.getItem(KEY)) return;
+
+    var splash = document.getElementById('rs-splash');
+    if (!splash) return;
+
+    var ringProgress = splash.querySelector('.rs-ring-progress');
+    var ringNumber   = splash.querySelector('.rs-ring-number');
+    var TOTAL = 5;
+    var circumference = 113;
+
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            splash.classList.add('rs-splash-show');
+            splash.setAttribute('aria-hidden', 'false');
+
+            var remaining = TOTAL;
+            ringNumber.textContent = remaining;
+            ringProgress.style.strokeDashoffset = 0;
+
+            var tick = setInterval(function() {
+                remaining -= 1;
+                if (remaining < 0) remaining = 0;
+
+                ringNumber.textContent = remaining;
+                var offset = circumference * (1 - remaining / TOTAL);
+                ringProgress.style.strokeDashoffset = offset;
+
+                if (remaining <= 0) clearInterval(tick);
+            }, 1000);
+
+            var hideTimer = setTimeout(function() {
+                clearInterval(tick);
+                rsCloseSplash();
+            }, TOTAL * 1000);
+
+            window.rsCloseSplash = function() {
+                clearInterval(tick);
+                clearTimeout(hideTimer);
+                closeNow();
+            };
+        }, 300);
+    });
+
+    function closeNow() {
+        splash.classList.remove('rs-splash-show');
+        splash.setAttribute('aria-hidden', 'true');
+        sessionStorage.setItem(KEY, '1');
+
+        // 🎉 Fire the money rain as the popup fades out
+        setTimeout(function() {
+            if (typeof window.rsStartMoneyRain === 'function') {
+                window.rsStartMoneyRain();
+            }
+        }, 250);
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && splash.classList.contains('rs-splash-show')) {
+            closeNow();
+        }
+    });
+})();
+
+/* ============================================
+   GLOBAL FALLBACK (used by the X button)
+   ============================================ */
+function rsCloseSplash() {
+    var splash = document.getElementById('rs-splash');
+    if (!splash) return;
+
+    splash.classList.remove('rs-splash-show');
+    splash.setAttribute('aria-hidden', 'true');
+    sessionStorage.setItem('rs_splash_seen', '1');
+
+    setTimeout(function() {
+        if (typeof window.rsStartMoneyRain === 'function') {
+            window.rsStartMoneyRain();
+        }
+    }, 250);
+}
+</script>    
+</body>
+    
+</html>

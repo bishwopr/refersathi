@@ -1,0 +1,51 @@
+# ==========================================================================
+# Site Configuration - ReferSathi Clean Root Path Patch
+# ==========================================================================
+
+name: 'ReferSathi'
+title: 'ReferSathi'
+description: 'A great collection of Australian referral sites.'
+logo: 'assets/images/logo.png'
+favicon: 'assets/images/logo.png'
+avatar: 'assets/images/sal.jpg'
+
+# 🌟 THE CRITICAL FIX: Leaving this completely blank strips away the old 
+# template folder path names so your home URL is simply http://127.0.0.1:4000
+url: "https://bishwopr.github.io"
+baseurl: "/refersathi"
+# 🌟 PERMALINK PATTERN: Keeps your inner page links clean and direct
+permalink: /:title/
+
+disqus: "refersathi"
+
+include: ["_pages"]
+markdown: kramdown
+highlighter: rouge
+
+paginate: 20
+paginate_path: "/page:num/"
+
+plugins: 
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-paginate
+  - jekyll-seo-tag
+ 
+# 🌟 FIXED INDENTATION PIPELINE (No duplicate entries or loose spaces)
+defaults:
+  - scope:
+      path: "_pages"
+    values:
+      layout: page
+  - scope:
+      path: "_posts"
+    values:
+      layout: post
+      comments: true
+      reward_value: 0
+      affiliate_url: "https://"
+      description: ""
+      image: "assets/images/"
+      
+exclude: [README.markdown, package.json, grunt.js, Gruntfile.js, Gruntfile.coffee, node_modules]
+

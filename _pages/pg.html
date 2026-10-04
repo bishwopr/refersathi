@@ -1,0 +1,143 @@
+---
+title: "Private Post Generator"
+layout: default
+permalink: /pg/
+---
+
+<div class="container my-5" style="max-width: 700px;">
+  <div class="card p-4 shadow-sm" style="border-radius: 12px; border: 1px solid #eee;">
+    <h2 class="font-weight-bold mb-4" style="color: #11998e;">🛠️ ReferSathi Markdown Generator</h2>
+    
+    <div class="form-group mb-3">
+      <label class="font-weight-bold">Offer Title</label>
+      <input type="text" id="form-title" class="form-control" placeholder="e.g., Revolut Sign-Up Bonus">
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="font-weight-bold">Short Description</label>
+      <input type="text" id="form-desc" class="form-control" placeholder="e.g., Get a free card and \$20 bonus...">
+    </div>
+
+    <div class="row mb-3">
+      <div class="col-md-6">
+        <label class="font-weight-bold">Reward Value (\$)</label>
+        <input type="number" id="form-reward" class="form-control" value="20">
+      </div>
+      <div class="col-md-6">
+        <!-- 🌟 UPGRADED: Visual File Selector Box -->
+        <label class="font-weight-bold">Choose Cover Image</label>
+        <input type="file" id="form-file-picker" class="form-control-file" accept="image/*" onchange="processImageName(this)">
+        <input type="hidden" id="form-img" value="assets/images/1.jpg">
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="font-weight-bold">Affiliate / Tracking URL</label>
+      <input type="url" id="form-url" class="form-control" value="https://">
+    </div>
+
+    <div class="form-group mb-4">
+      <label class="font-weight-bold">Sign-Up Instructions (Step-by-Step)</label>
+      <textarea id="form-steps" class="form-control" rows="4" placeholder="1. Click the link...&#10;2. Create an account..."></textarea>
+    </div>
+
+    <button onclick="generateMarkdown()" class="btn btn-block text-white font-weight-bold" style="background: linear-gradient(135deg, #11998e, #38ef7d); border-radius: 30px; padding: 12px;">
+      🚀 Generate & Copy Code
+    </button>
+  </div>
+
+  <!-- Output Display Box -->
+  <div class="mt-5 d-none" id="output-container">
+    <div class="alert alert-warning mb-3" role="alert" id="image-alert-box" style="font-size: 0.95rem; border-left: 5px solid #ffc107;">
+      <strong>⚠️ Image Copy Required:</strong> Remember to paste the image from your clipboard into your <code>assets/images/</code> folder, or copy your chosen image file into that directory manually!
+    </div>
+
+    <label class="font-weight-bold text-success">📋 Generated Markdown Code (Copied to Clipboard!)</label>
+    <pre class="bg-dark text-white p-3" id="markdown-output" style="border-radius: 8px; overflow-x: auto; font-family: monospace;"></pre>
+    
+    <div class="alert alert-info mt-2" role="alert" style="font-size: 0.9rem;">
+      <strong>Next Step:</strong> Create a new file inside <code>_posts/</code> named <code id="suggested-filename"></code> and paste this code inside it!
+    </div>
+  </div>
+</div>
+
+<script>
+// Automatically extracts the real filename string when you choose a file from your computer
+function processImageName(input) {
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
+    const filename = file.name;
+    
+    // Set the internal asset variable to match your folder pathway cleanly
+    document.getElementById('form-img').value = "assets/images/" + filename;
+    
+    // Attempt to automatically read the file data blob into the clipboard memory buffer
+    try {
+      const reader = new FileReader();
+      reader.onload = async function(e) {
+        try {
+          const response = await fetch(e.target.result);
+          const blob = await response.blob();
+          await navigator.clipboard.write([
+            new ClipboardItem({ [blob.type]: blob })
+          ]);
+          document.getElementById('image-alert-box').innerHTML = `<strong>✅ Success:</strong> Image file <code>${filename}</code> has been copied to your clipboard! Just open your <code>assets/images/</code> directory and hit paste.`;
+        } catch (err) {
+          console.log("Clipboard block error: ", err);
+        }
+      };
+      reader.readAsDataURL(file);
+    } catch(e) {
+      // Background safety fallback
+    }
+  }
+}
+
+function generateMarkdown() {
+  const title = document.getElementById('form-title').value || "New Offer";
+  const desc = document.getElementById('form-desc').value || "";
+  const reward = document.getElementById('form-reward').value || "0";
+  const img = document.getElementById('form-img').value;
+  const url = document.getElementById('form-url').value || "https://";
+  const steps = document.getElementById('form-steps').value || "1. Sign up using our link.";
+
+  const formattedSteps = steps.split('\n').map(line => line.trim()).filter(line => line).join('\n');
+
+  const markdownCode = `---
+layout: post
+title: "${title}"
+description: "${desc}"
+image: "${img}"
+categories: [ finance, apps ]
+reward_value: ${reward}
+affiliate_url: "${url}"
+comments: true
+---
+
+### 📋 Sign-Up Instructions
+
+${formattedSteps}
+
+---
+
+<div style="text-align: center; margin: 35px 0;">
+  <a href="{{ page.affiliate_url }}" target="_blank" rel="nofollow noopener" style="background-color: #38ef7d; color: #08602b; padding: 16px 32px; text-decoration: none; font-weight: 800; border-radius: 50px; font-size: 1.15em; display: inline-block; box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3); transition: transform 0.2s; min-width: 250px;">
+    🚀 Claim Payout Credit
+  </a>
+</div>
+
+---`;
+
+  // Display the final output markdown block data string arrays
+  document.getElementById('markdown-output').textContent = markdownCode;
+  document.getElementById('output-container').classList.remove('d-none');
+
+  const today = new Date().toISOString().split('T')[0];
+  const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-\$)/g, '');
+  document.getElementById('suggested-filename').textContent = `${today}-${slug}.md`;
+
+  // Fallback check to ensure the markdown code block copies to clipboard memory space
+  navigator.clipboard.writeText(markdownCode).catch(err => console.log('Markdown string copy error: ', err));
+}
+</script>
+

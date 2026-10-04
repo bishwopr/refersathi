@@ -1,0 +1,76 @@
+<div class="card card-pin raco" {% unless post.image %} style="min-height:250px;background:#333;" {% endunless %}>
+        
+    <!-- ==================== TEXT-ONLY CARD TILES ==================== -->
+    {% unless post.image %}
+       <a href="{{ post.url | relative_url }}" class="d-block p-3">
+         <h2 class="card-title title text-white mb-3" style="font-weight: 700; line-height: 1.25;">{{ post.title }}</h2>         
+         
+         <div class="tile-description mb-3" style="font-size: 0.85rem; line-height: 1.4; color: rgba(255,255,255,0.9);">
+           {{ post.description }}
+         </div>
+        
+         {% if post.reward_value and post.reward_value != 0 and post.reward_value != "0" %}
+         <div class="mb-2">
+           <span class="badge badge-success p-2" style="background: #38ef7d; color: #08602b; font-weight: bold; font-size: 0.85rem; border-radius: 30px; display: inline-block;">
+             ${{ post.reward_value }} Reward
+           </span>
+         </div>
+         {% endif %}
+
+         <div class="more mr-2 mb-2">                
+           <i class="fa fa-arrow-circle-right text-white" aria-hidden="true"></i>
+         </div> 
+       </a>
+    {% endunless %}
+        
+    <!-- ==================== IMAGE-BASED CARD TILES ==================== -->
+    {% if post.image %} 
+    <div class="wrapcat">
+         <span class="pinme">
+             <a data-pin-do="buttonPin" href="https://www.pinterest.com/pin/create/button/?url={{ post.url | absolute_url }}&media={% if post.image contains '://' %}{{ post.image }}{% else %}{{ post.image | absolute_url }}{% endif %}&description={{ post.title }} - {{ post.description | strip_html | truncatewords:15 }}"></a>
+         </span>
+
+         <span class="gotopost">
+             <a href="{{ post.url | relative_url }}" class="text-dark"><i class="fa fa-arrow-circle-right"></i> More</a>
+         </span> 
+
+         <div class="showcat">
+            {% for category in post.categories %}
+              <a class="btn btn-sm btn-danger mb-1" href="{{ '/categories.html' | relative_url }}#{{ category | downcase }}">
+                {{ category }}
+              </a>
+            {% endfor %}
+         </div>
+    </div>
+           
+    <a href="{{ post.url | relative_url }}" style="display: block; text-decoration: none;">
+         
+        <img class="card-img" 
+             src="{% if post.image contains '://' %}{{ post.image }}{% else %}{{ post.image | relative_url }}{% endif %}" 
+             alt="{{ post.title }}"
+             data-theme-color="{{ post.theme_color | default: '' }}">
+
+        <div class="notraco">
+            <h2 class="card-title title">{{ post.title }}</h2>
+            
+            <div class="tile-description">
+              {{ post.description }}
+            </div>
+
+            {% if post.reward_value and post.reward_value != 0 and post.reward_value != "0" %}
+            <div class="card-reward-row">
+              <span class="badge badge-success">
+                ${{ post.reward_value }} Reward
+              </span>
+              <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+            </div>
+            {% else %}
+            <div class="card-reward-row card-reward-row-empty">
+              <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
+            </div>
+            {% endif %}
+        </div>
+    </a>
+    {% endif %}
+        
+</div>
