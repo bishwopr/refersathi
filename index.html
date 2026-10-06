@@ -42,13 +42,38 @@ description: "A great collection of australian referal sites."
         </div>
     </div>
 </div>
-    <!-- 3. CLEAN GRID TILES -->
-    <div class="container-fluid">
-        <div class="clean-instagram-grid">        
-            {% for post in paginator.posts reversed %}
-                {% include card-post.html %}
-            {% endfor %}            
-        </div>
+    /* ============================================
+   CARD GRID — Instagram/Kraken style
+   ============================================ */
+.clean-instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+    padding: 0 12px;
+    align-items: start;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.clean-instagram-grid .card-pin {
+    margin-bottom: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    justify-self: stretch !important;
+}
+
+/* Mobile — force 2 columns */
+@media (max-width: 576px) {
+    .clean-instagram-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 0 10px !important;
+    }
+    .clean-instagram-grid .card-pin {
+        max-width: 100% !important;
+    }
+}
         
         <!-- 4. PAGINATION SYSTEM -->
         <div class="row justify-content-center mt-5">
