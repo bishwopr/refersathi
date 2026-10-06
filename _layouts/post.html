@@ -1,65 +1,341 @@
 ---
 layout: default
 ---
-<section class="bg-gray200 pt-5 pb-5">    
-    <div class="container">
-    	<div class="row justify-content-center">
-    		<div class="col-md-8">
-                
-    			<article class="card">
-                    
-                 {% if page.image %} 
-                    <span class="pinme">
-                        <a data-pin-do="buttonPin" data-pin-tall="true" href="https://www.pinterest.com/pin/create/button/?url={{site.url}}{{site.baseurl}}{{page.url}}&media={{site.url}}{{site.baseurl}}/{{page.image}}&description={{ page.title }}- {{ page.content | strip_html | truncatewords:25 }}"></a>
-                    </span>
-                    <img class="card-img-top mb-2" src="{% if page.image contains "://" %}{{ page.image }}{% else %}{{ page.image | absolute_url }}{% endif %}" alt="{{ page.title }}"> 
-                {% endif %}
-                    
-    			<div class="card-body">
-                    
-    				<h1 class="display-4">
-    				    {{page.title}} 
-                    </h1>                    
-                     
-                    <small class="text-muted d-block mb-3">
-                        {% unless page.metadate == "hide" %} 
-                            {{ page.date | date: '%B %d, %Y' }} 
-                        {% endunless %}
-                        {% if page.author %}
-                            , by {{page.author | capitalize}} 
-                        {% endif %}
-                    </small>                    
-                    
-    				{{ content }}
-                    
-                    {% if page.visit %}
-                    <p><a target="_blank" href="{{page.visit}}" class="btn btn-gray d-block font-weight-bold">
-                        Visit <i class="fas fa-external-link-alt"></i></a>
-                    </p>
-                    {% endif %}
-                    
-                    {% for category in page.categories %}
-                      <a class="btn btn-sm btn-primary mt-2" href="{{site.baseurl}}/categories.html#{{ category | downcase }}">
-                        # {{ category | downcase }}
-                      </a>
-                    {% endfor %}
-                    
-    				{% include comments.html %}
-                    
-    			</div>  
-                    
-    			</article>
-                
-                <div class="PageNavigation">
-                  {% if page.next.url %}
-                    <a class="prev" href="{{site.baseurl}}{{page.next.url}}"><i class="fa fa-angle-left"></i> </a>
-                  {% endif %}
-                  {% if page.previous.url %}
-                    <a class="next" href="{{site.baseurl}}{{page.previous.url}}"><i class="fa fa-angle-right"></i></a>
-                  {% endif %}
-                </div>
-                
-    		</div>
-    	</div>
+
+<div class="rs-post-wrap">
+
+  <!-- ============================================
+       HERO CARD
+       ============================================ -->
+  <div class="rs-post-card">
+
+    <!-- Header row: title + reward meta -->
+    <div class="rs-post-header">
+      <div class="rs-post-header-left">
+        <div class="rs-post-eyebrow">{{ page.categories | first | default: "Referral" | capitalize }}</div>
+        <h1 class="rs-post-title">{{ page.title }}</h1>
+      </div>
+      <div class="rs-post-header-right">
+        <span class="rs-post-meta">Reward</span>
+        <span class="rs-post-reward">${{ page.reward_value }}</span>
+      </div>
     </div>
-</section>
+
+    <!-- Hero image (if any) -->
+    {% if page.image %}
+    <div class="rs-post-hero">
+      <img src="{% if page.image contains '://' %}{{ page.image }}{% else %}{{ site.baseurl }}/{{ page.image }}{% endif %}" alt="{{ page.title }}">
+    </div>
+    {% endif %}
+
+    <!-- Quick stats / badges row -->
+    <div class="rs-post-badges">
+      <div class="rs-post-badge">
+        <span class="rs-post-badge-icon">💰</span>
+        <span class="rs-post-badge-label">${{ page.reward_value }} Reward</span>
+      </div>
+      <div class="rs-post-badge">
+        <span class="rs-post-badge-icon">⚡</span>
+        <span class="rs-post-badge-label">Fast payout</span>
+      </div>
+      <div class="rs-post-badge">
+        <span class="rs-post-badge-icon">✅</span>
+        <span class="rs-post-badge-label">Verified</span>
+      </div>
+    </div>
+
+    <!-- Description -->
+    {% if page.description %}
+    <p class="rs-post-desc">{{ page.description }}</p>
+    {% endif %}
+
+    <!-- Big primary CTA -->
+    {% if page.affiliate_url and page.affiliate_url != "https://" and page.affiliate_url != "" %}
+    <a href="{{ page.affiliate_url }}" target="_blank" rel="nofollow noopener" class="rs-post-cta">
+      Get My ${{ page.reward_value }} Bonus →
+    </a>
+    {% endif %}
+
+  </div>
+
+  <!-- ============================================
+       HOW IT WORKS CARD
+       ============================================ -->
+  <div class="rs-post-card">
+    <h2 class="rs-post-section-title">How it works</h2>
+
+    <div class="rs-post-steps">
+      {{ content }}
+    </div>
+
+    <p class="rs-post-footer-note">
+      Offer available in eligible regions. Terms and conditions apply.
+    </p>
+  </div>
+
+</div>
+
+<style>
+/* ============================================
+   REFERSATHI — Post page (app-style)
+   ============================================ */
+
+.rs-post-wrap {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    background: #f4f6f5;
+    min-height: 100vh;
+}
+
+/* Cards */
+.rs-post-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+/* Header row */
+.rs-post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.rs-post-header-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.rs-post-eyebrow {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #11998e;
+    margin-bottom: 4px;
+}
+
+.rs-post-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #1a1a1a;
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.rs-post-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex-shrink: 0;
+}
+
+.rs-post-meta {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #999;
+}
+
+.rs-post-reward {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #11998e;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/* Hero image */
+.rs-post-hero {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 18px;
+    background: #f0f0f0;
+}
+
+.rs-post-hero img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Badges row */
+.rs-post-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.rs-post-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e8f5ef;
+    color: #0f4d3a;
+    padding: 8px 14px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.rs-post-badge-icon {
+    font-size: 0.95rem;
+    line-height: 1;
+}
+
+.rs-post-badge-label {
+    white-space: nowrap;
+}
+
+/* Description */
+.rs-post-desc {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    color: #555;
+    margin: 0 0 20px;
+}
+
+/* Big CTA button */
+.rs-post-cta {
+    display: block;
+    width: 100%;
+    background: #0f172a;
+    color: #ffffff !important;
+    text-align: center;
+    padding: 16px 22px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 800;
+    text-decoration: none !important;
+    letter-spacing: 0.2px;
+    transition: transform 0.2s ease, background 0.2s ease;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+}
+
+.rs-post-cta:hover {
+    background: #1e293b;
+    transform: translateY(-1px);
+    color: #ffffff !important;
+}
+
+/* Section title */
+.rs-post-section-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin: 0 0 16px;
+    letter-spacing: -0.3px;
+}
+
+/* Steps list */
+.rs-post-steps {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+.rs-post-steps h3,
+.rs-post-steps h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 18px 0 8px;
+}
+
+.rs-post-steps ol {
+    list-style: none;
+    counter-reset: rs-step;
+    padding: 0;
+    margin: 0;
+}
+
+.rs-post-steps ol li {
+    counter-increment: rs-step;
+    position: relative;
+    padding: 16px 16px 16px 62px;
+    background: #f8faf9;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #2a2a2a;
+}
+
+.rs-post-steps ol li::before {
+    content: counter(rs-step);
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: #eef3f1;
+    color: #666;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.rs-post-steps p {
+    margin: 0 0 12px;
+}
+
+.rs-post-steps blockquote {
+    background: #f8faf9;
+    border-left: 4px solid #11998e;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 0.9rem;
+    color: #333;
+}
+
+/* Footer note */
+.rs-post-footer-note {
+    font-size: 0.75rem;
+    color: #999;
+    text-align: center;
+    margin: 20px 0 0;
+    line-height: 1.5;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .rs-post-wrap {
+        padding: 16px 12px 40px;
+    }
+    .rs-post-card {
+        padding: 20px 18px;
+        border-radius: 18px;
+    }
+    .rs-post-title {
+        font-size: 1.2rem;
+    }
+    .rs-post-reward {
+        font-size: 1.4rem;
+    }
+    .rs-post-steps ol li {
+        padding: 14px 14px 14px 56px;
+        font-size: 0.9rem;
+    }
+    .rs-post-steps ol li::before {
+        left: 14px;
+        width: 28px;
+        height: 28px;
+        font-size: 0.85rem;
+    }
+}
+</style>
