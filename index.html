@@ -42,38 +42,13 @@ description: "A great collection of australian referal sites."
         </div>
     </div>
 </div>
-    /* ============================================
-   CARD GRID — Instagram/Kraken style
-   ============================================ */
-.clean-instagram-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 12px;
-    padding: 0 12px;
-    align-items: start;
-    max-width: 900px;
-    margin: 0 auto;
-}
-
-.clean-instagram-grid .card-pin {
-    margin-bottom: 0 !important;
-    display: block !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    justify-self: stretch !important;
-}
-
-/* Mobile — force 2 columns */
-@media (max-width: 576px) {
-    .clean-instagram-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
-        padding: 0 10px !important;
-    }
-    .clean-instagram-grid .card-pin {
-        max-width: 100% !important;
-    }
-}
+    <!-- 3. CLEAN GRID TILES -->
+    <div class="container-fluid">
+        <div class="clean-instagram-grid">        
+            {% for post in paginator.posts reversed %}
+                {% include card-post.html %}
+            {% endfor %}            
+        </div>
         
         <!-- 4. PAGINATION SYSTEM -->
         <div class="row justify-content-center mt-5">
@@ -134,57 +109,6 @@ description: "A great collection of australian referal sites."
     .clean-instagram-grid .card-pin {
         max-width: 100%;
     }
-
-  /* Image — square, but sized for small cards */
-.clean-instagram-grid .card-pin.raco .card-img {
-    width: 100% !important;
-    height: auto !important;
-    aspect-ratio: 1 / 1 !important;
-    object-fit: cover !important;
-    display: block !important;
-}
-
-/* Text block — tighter for small tiles */
-.clean-instagram-grid .card-pin.raco .notraco {
-    padding: 10px 12px 12px !important;
-}
-
-.clean-instagram-grid .card-pin.raco .notraco .card-title {
-    font-size: 0.85rem !important;
-    line-height: 1.25 !important;
-    margin-bottom: 4px !important;
-    text-align: left !important;
-}
-
-.clean-instagram-grid .card-pin.raco .notraco .tile-description {
-    font-size: 0.7rem !important;
-    line-height: 1.35 !important;
-    margin-bottom: 4px !important;
-    -webkit-line-clamp: 2 !important;
-}
-
-.clean-instagram-grid .card-pin.raco .notraco .badge-success {
-    font-size: 0.65rem !important;
-    padding: 4px 8px !important;
-    border-radius: 999px !important;
-}
-
-.clean-instagram-grid .card-pin.raco .notraco .fa-arrow-circle-right {
-    font-size: 0.9rem !important;
-}
-
-/* Card corner radius */
-.clean-instagram-grid .card-pin.raco {
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    background: #fff !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
-}
-
-/* Reward row spacing */
-.clean-instagram-grid .card-pin.raco .notraco .card-reward-row {
-    margin-top: 6px !important;
-}
 }
 
 /* ============================================
