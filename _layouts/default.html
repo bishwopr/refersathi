@@ -57,15 +57,20 @@
         position: static !important;
     }
 
-    /* Navbar sticky instead of fixed so it never overlaps content */
+    /* Navbar sticky at top (no overlap, no big gap) */
     .navbar.fixed-top {
         position: sticky !important;
         top: 0 !important;
         z-index: 1030 !important;
     }
 
+    /* Reset any theme padding that was creating the big gap */
+    body {
+        padding-top: 0 !important;
+    }
     main[role="main"] {
         padding-top: 12px !important;
+        margin-top: 0 !important;
     }
 
     /* Money rain layer should never block scroll */
