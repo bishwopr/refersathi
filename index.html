@@ -232,7 +232,36 @@ ul.navbar-nav.categories .nav-link {
     width: auto !important;
     border-radius: 999px !important;
 }
+/* Force bill banner to always show the full image */
+.rs-bill-banner {
+    max-width: 100% !important;
+    width: 100% !important;
+}
 
+.rs-bill-bg {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+/* Override any mobile-specific cropping */
+@media (max-width: 768px) {
+    .rs-bill-banner {
+        aspect-ratio: auto !important;
+        max-height: none !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    .rs-bill-bg {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: auto !important;
+        object-fit: contain !important;
+        max-height: none !important;
+    }
+}
 /* ---------- CARD GRID ---------- */
 .rs-grid-container {
     max-width: 1100px;
