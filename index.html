@@ -12,7 +12,7 @@ description: "A great collection of australian referal sites."
   {% endif %}
 {% endfor %}
 
-<!-- 1. HERO BILL BANNER — full image on mobile -->
+<!-- 1. HERO BILL BANNER -->
 <div class="container mt-4 mb-5">
   <div class="row">
     <div class="col-md-12">
@@ -30,7 +30,7 @@ description: "A great collection of australian referal sites."
 
 <section class="mt-4 mb-5">
 
-  <!-- 2. EXPLORE HEADER with search icon + category pills -->
+  <!-- 2. EXPLORE HEADER with search icon -->
   <div class="container mb-4">
     <div class="rs-explore-header">
       <img src="{{ site.baseurl }}/assets/images/fisherman.png" alt="" class="rs-explore-fisherman" aria-hidden="true">
@@ -47,7 +47,7 @@ description: "A great collection of australian referal sites."
     </div>
   </div>
 
-  <!-- 3. CARD GRID — smaller, Kraken-like container -->
+  <!-- 3. CARD GRID -->
   <div class="rs-grid-container">
     <div class="clean-instagram-grid">
       {% for post in paginator.posts reversed %}
@@ -88,18 +88,18 @@ description: "A great collection of australian referal sites."
 </section>
 
 <!-- ============================================
-     SEARCH OVERLAY (hidden by default)
+     SEARCH OVERLAY
      ============================================ -->
 <div class="rs-search-overlay" id="rsSearchOverlay" aria-hidden="true">
   <div class="rs-search-panel">
-    <form class="rs-search-form" onsubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+    <div class="rs-search-form">
       <i class="fa fa-search rs-search-form-icon"></i>
-      <input type="text" id="lunrsearch" name="q" placeholder="Search referral sites..." autocomplete="off">
+      <input type="text" id="rsSearchInput" placeholder="Search referral sites..." autocomplete="off">
       <button type="button" class="rs-search-close" id="rsSearchClose" aria-label="Close">
         <i class="fa fa-times"></i>
       </button>
-    </form>
-    <p class="rs-search-hint">Start typing to see results</p>
+    </div>
+    <p class="rs-search-hint">Press Enter to search · Esc to close</p>
   </div>
 </div>
 
@@ -117,11 +117,6 @@ description: "A great collection of australian referal sites."
     line-height: 0;
     transition: transform 0.4s ease, box-shadow 0.4s ease;
     background: #0b3d2e;
-}
-
-.rs-bill-banner:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 20px 60px rgba(0,0,0,0.22), 0 6px 18px rgba(0,0,0,0.12);
 }
 
 .rs-bill-bg {
@@ -173,33 +168,31 @@ description: "A great collection of australian referal sites."
 .rs-bill-tagline {
     font-size: clamp(0.75rem, 1vw, 1rem);
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.95);
     margin-top: 8px;
     max-width: 380px;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.65);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.75);
 }
 
 /* ---------- EXPLORE HEADER ---------- */
 .rs-explore-header {
     position: relative;
     display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    min-height: 150px;
+    align-items: center;
+    gap: 12px;
+    min-height: 130px;
     margin-bottom: 12px;
     margin-top: 8px;
 }
 
 .rs-explore-fisherman {
-    height: 150px;
+    height: 130px;
     width: auto;
-    margin-bottom: -30px;
+    margin-bottom: -20px;
     flex-shrink: 0;
     pointer-events: none;
     filter: drop-shadow(0 6px 12px rgba(0,0,0,0.10));
     animation: rsFishermanBob 4s ease-in-out infinite;
-    position: relative;
-    z-index: 2;
 }
 
 @keyframes rsFishermanBob {
@@ -208,29 +201,30 @@ description: "A great collection of australian referal sites."
 }
 
 .rs-explore-title {
-    font-size: 3.25rem !important;
+    font-size: 3rem !important;
     font-weight: 800 !important;
-    margin: 0 0 12px 0 !important;
+    margin: 0 !important;
     line-height: 1;
     color: #1f1f1f;
     letter-spacing: -1.5px;
-    flex: 1;
+    flex: 0 0 auto;
 }
 
 /* Search icon button */
 .rs-search-btn {
-    width: 52px;
-    height: 52px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     border: none;
     background: #f1f3f4;
     color: #11998e;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 12px;
+    margin-left: 8px;
+    margin-bottom: 6px;
     flex-shrink: 0;
     transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
     box-shadow: 0 2px 8px rgba(0,0,0,0.06);
@@ -291,44 +285,73 @@ ul.navbar-nav.categories .nav-link {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 14px;
-    align-items: start;
+    align-items: stretch;
 }
 
+/* Equal-height cards */
 .clean-instagram-grid .card-pin {
     margin-bottom: 0 !important;
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
     width: 100% !important;
     max-width: 100% !important;
     justify-self: stretch !important;
+    height: 100% !important;
 }
 
-/* Tighter text inside cards */
-.clean-instagram-grid .card-pin.raco .notraco {
+.clean-instagram-grid .card-pin > a {
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100% !important;
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.clean-instagram-grid .card-pin .card-img {
+    flex-shrink: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+.clean-instagram-grid .card-pin .notraco {
+    flex-grow: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
     padding: 10px 12px 12px !important;
 }
 
-.clean-instagram-grid .card-pin.raco .notraco .card-title {
+.clean-instagram-grid .card-pin .notraco .card-title {
     font-size: 0.82rem !important;
     line-height: 1.25 !important;
     margin-bottom: 4px !important;
     text-align: left !important;
 }
 
-.clean-instagram-grid .card-pin.raco .notraco .tile-description {
+.clean-instagram-grid .card-pin .notraco .tile-description {
     font-size: 0.7rem !important;
     line-height: 1.35 !important;
     margin-bottom: 4px !important;
     -webkit-line-clamp: 2 !important;
 }
 
-.clean-instagram-grid .card-pin.raco .notraco .badge-success {
+.clean-instagram-grid .card-pin .notraco .badge-success {
     font-size: 0.65rem !important;
     padding: 4px 8px !important;
     border-radius: 999px !important;
 }
 
-.clean-instagram-grid .card-pin.raco .notraco .fa-arrow-circle-right {
+.clean-instagram-grid .card-pin .notraco .fa-arrow-circle-right {
     font-size: 0.9rem !important;
+}
+
+/* Push reward row to the bottom */
+.clean-instagram-grid .card-pin .notraco .card-reward-row {
+    margin-top: auto !important;
+    padding-top: 8px !important;
 }
 
 .clean-instagram-grid .card-pin.raco {
@@ -347,14 +370,14 @@ body {
 .rs-search-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(255, 255, 255, 0.4);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     z-index: 9998;
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding: 120px 20px 20px;
+    padding: 130px 20px 20px;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
@@ -368,12 +391,12 @@ body {
 .rs-search-panel {
     width: 100%;
     max-width: 640px;
-    transform: translateY(-10px);
-    transition: transform 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    transform: translateY(-12px) scale(0.98);
+    transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.2);
 }
 
 .rs-search-overlay.rs-open .rs-search-panel {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
 }
 
 .rs-search-form {
@@ -382,8 +405,8 @@ body {
     gap: 12px;
     background: #ffffff;
     border-radius: 999px;
-    padding: 8px 12px 8px 20px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    padding: 6px 8px 6px 22px;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18);
     border: 2px solid transparent;
     transition: border-color 0.2s ease;
 }
@@ -438,10 +461,10 @@ body {
 
 .rs-search-hint {
     text-align: center;
-    color: #666;
-    font-size: 0.85rem;
+    color: #444;
+    font-size: 0.8rem;
     margin-top: 16px;
-    opacity: 0.9;
+    opacity: 0.85;
 }
 
 /* ============================================
@@ -463,9 +486,18 @@ body {
     .rs-bill-amount { font-size: 2.4rem; }
     .rs-bill-tagline { max-width: 100%; font-size: 0.8rem; }
 
+    .rs-explore-header {
+        min-height: 100px;
+        gap: 8px;
+    }
     .rs-explore-title { font-size: 2rem !important; }
     .rs-explore-fisherman { height: 90px; margin-bottom: -14px; }
-    .rs-search-btn { width: 44px; height: 44px; font-size: 1rem; }
+    .rs-search-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+    }
 
     .navbar-nav.categories .nav-link,
     ul.navbar-nav.categories .nav-link {
@@ -477,13 +509,16 @@ body {
         font-size: 15px !important;
     }
 
-    /* Force 2 columns on mobile */
     .clean-instagram-grid {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
     }
     .rs-grid-container {
         padding: 0 10px;
+    }
+
+    .rs-search-overlay {
+        padding: 100px 14px 14px;
     }
 }
 </style>
@@ -496,19 +531,22 @@ body {
     var openBtn  = document.getElementById('rsSearchBtn');
     var closeBtn = document.getElementById('rsSearchClose');
     var overlay  = document.getElementById('rsSearchOverlay');
-    var input    = document.getElementById('lunrsearch');
+    var input    = document.getElementById('rsSearchInput');
 
     if (!openBtn || !overlay) return;
 
     function open() {
         overlay.classList.add('rs-open');
         overlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
         setTimeout(function() { input.focus(); }, 300);
     }
 
     function close() {
         overlay.classList.remove('rs-open');
         overlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        input.value = '';
     }
 
     openBtn.addEventListener('click', open);
@@ -518,9 +556,21 @@ body {
         if (e.key === 'Escape') close();
     });
 
-    // Click outside panel = close
     overlay.addEventListener('click', function(e) {
         if (e.target === overlay) close();
+    });
+
+    input.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            var term = input.value;
+            close();
+            if (typeof lunr_search === 'function') {
+                lunr_search(term);
+            } else {
+                window.location.href = '/search?q=' + encodeURIComponent(term);
+            }
+        }
     });
 })();
 
