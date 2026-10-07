@@ -29,62 +29,20 @@ description: "A great collection of australian referal sites."
 </div>
 
 <section class="mt-4 mb-5">
-
-  <!-- 2. CATEGORIES SELECTOR -->
-  <div class="container mb-4">
+    
+   <!-- 2. CATEGORIES SELECTOR -->
+<div class="container mb-4">
     <div class="rs-explore-header">
-      <img src="{{ site.baseurl }}/assets/images/fisherman.png" alt="" class="rs-explore-fisherman" aria-hidden="true">
-      <h1 class="font-weight-bold title rs-explore-title">Explore</h1>
+        <img src="{{ site.baseurl }}/assets/images/fisherman.png" alt="" class="rs-explore-fisherman" aria-hidden="true">
+        <h1 class="font-weight-bold title rs-explore-title">Explore</h1>
     </div>
     <div class="row">
-      <div class="rs-category-pills">
-        {% include menu-categories.html %}
-      </div>
+        <div class="rs-category-pills">
+            {% include menu-categories.html %}
+        </div>
     </div>
-  </div>
-
-  <!-- 3. CARD GRID -->
-  <div class="container-fluid">
-    <div class="clean-instagram-grid">
-      {% for post in paginator.posts reversed %}
-        {% include card-post.html %}
-      {% endfor %}
-    </div>
-
-    <!-- 4. PAGINATION -->
-    <div class="row justify-content-center mt-5">
-      {% if paginator.total_pages > 1 %}
-      <div class="pagination">
-        {% if paginator.previous_page %}
-          <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
-        {% else %}
-          <span class="prev">&laquo; Prev</span>
-        {% endif %}
-
-        {% for page in (1..paginator.total_pages) %}
-          {% if page == paginator.page %}
-            <span class="webjeda current" style="background:#bd081c; color:#fff; padding:7px 18px; border:1px solid #bd081c; display:inline-block;">{{ page }}</span>
-          {% elsif page == 1 %}
-            <a href="{{ '/' | relative_url }}" style="padding:7px 18px; border:1px solid #eee; margin-left:-2px; display:inline-block;">{{ page }}</a>
-          {% else %}
-            <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" style="padding:7px 18px; border:1px solid #eee; margin-left:-2px; display:inline-block;">{{ page }}</a>
-          {% endif %}
-        {% endfor %}
-
-        {% if paginator.next_page %}
-          <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
-        {% else %}
-          <span class="next">Next &raquo;</span>
-        {% endif %}
-      </div>
-      {% endif %}
-    </div>
-  </div>
-
-</section>
-
-<style>
-/* ============================================
+</div>
+    /* ============================================
    CARD GRID — Instagram/Kraken style
    ============================================ */
 .clean-instagram-grid {
@@ -105,6 +63,79 @@ description: "A great collection of australian referal sites."
     justify-self: stretch !important;
 }
 
+/* Mobile — force 2 columns */
+@media (max-width: 576px) {
+    .clean-instagram-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+        padding: 0 10px !important;
+    }
+    .clean-instagram-grid .card-pin {
+        max-width: 100% !important;
+    }
+}
+        
+        <!-- 4. PAGINATION SYSTEM -->
+        <div class="row justify-content-center mt-5">
+            {% if paginator.total_pages > 1 %}
+            <div class="pagination"> 
+              {% if paginator.previous_page %}
+                <a href="{{ paginator.previous_page_path | relative_url }}">&laquo; Prev</a>
+              {% else %}
+                <span class="prev">&laquo; Prev</span>
+              {% endif %}
+
+              {% for page in (1..paginator.total_pages) %}
+                {% if page == paginator.page %}
+                  <span class="webjeda current" style="background:#bd081c; color:#fff; padding:7px 18px; border:1px solid #bd081c; display:inline-block;">{{ page }}</span>
+                {% elsif page == 1 %}
+                  <a href="{{ '/' | relative_url }}" style="padding:7px 18px; border:1px solid #eee; margin-left:-2px; display:inline-block;">{{ page }}</a>
+                {% else %}
+                  <a href="{{ site.paginate_path | relative_url | replace: ':num', page }}" style="padding:7px 18px; border:1px solid #eee; margin-left:-2px; display:inline-block;">{{ page }}</a>
+                {% endif %}
+              {% endfor %}
+
+              {% if paginator.next_page %}
+                <a href="{{ paginator.next_page_path | relative_url }}">Next &raquo;</a>
+              {% else %}
+                <span class="next">Next &raquo;</span>
+              {% endif %}
+            </div>
+            {% endif %}      
+        </div>
+    </div>    
+  
+</section>
+
+<style>
+.clean-instagram-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 20px;
+    padding: 0 15px;
+    align-items: start;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.clean-instagram-grid .card-pin {
+    margin-bottom: 0 !important;
+    display: block !important;
+    width: 100% !important;
+    max-width: 280px;
+    justify-self: center;
+}
+
+@media (max-width: 576px) {
+    .clean-instagram-grid {
+        grid-template-columns: 1fr;
+        padding: 0 10px;
+    }
+    .clean-instagram-grid .card-pin {
+        max-width: 100%;
+    }
+
+  /* Image — square, but sized for small cards */
 .clean-instagram-grid .card-pin.raco .card-img {
     width: 100% !important;
     height: auto !important;
@@ -113,6 +144,7 @@ description: "A great collection of australian referal sites."
     display: block !important;
 }
 
+/* Text block — tighter for small tiles */
 .clean-instagram-grid .card-pin.raco .notraco {
     padding: 10px 12px 12px !important;
 }
@@ -141,6 +173,7 @@ description: "A great collection of australian referal sites."
     font-size: 0.9rem !important;
 }
 
+/* Card corner radius */
 .clean-instagram-grid .card-pin.raco {
     border-radius: 12px !important;
     overflow: hidden !important;
@@ -148,59 +181,14 @@ description: "A great collection of australian referal sites."
     box-shadow: 0 1px 3px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
 }
 
+/* Reward row spacing */
 .clean-instagram-grid .card-pin.raco .notraco .card-reward-row {
     margin-top: 6px !important;
 }
-
-@media (max-width: 576px) {
-    .clean-instagram-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
-        padding: 0 10px !important;
-    }
 }
 
 /* ============================================
-   EXPLORE HEADER
-   ============================================ */
-.rs-explore-header {
-    position: relative;
-    display: flex;
-    align-items: flex-end;
-    gap: 20px;
-    min-height: 150px;
-    margin-bottom: 12px;
-    margin-top: 8px;
-}
-
-.rs-explore-fisherman {
-    height: 150px;
-    width: auto;
-    margin-bottom: -30px;
-    flex-shrink: 0;
-    pointer-events: none;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,0.10));
-    animation: rsFishermanBob 4s ease-in-out infinite;
-    position: relative;
-    z-index: 2;
-}
-
-@keyframes rsFishermanBob {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50%      { transform: translateY(-4px) rotate(-1deg); }
-}
-
-.rs-explore-title {
-    font-size: 3.25rem !important;
-    font-weight: 800 !important;
-    margin: 0 0 12px 0 !important;
-    line-height: 1;
-    color: #1f1f1f;
-    letter-spacing: -1.5px;
-}
-
-/* ============================================
-   BILL BANNER
+   BILL BANNER — image with overlaid text
    ============================================ */
 .rs-bill-banner {
     position: relative;
@@ -272,9 +260,54 @@ description: "A great collection of australian referal sites."
     text-shadow: 0 2px 6px rgba(0,0,0,0.65);
 }
 
-/* ============================================
-   CATEGORY PILLS
-   ============================================ */
+@media (max-width: 768px) {
+    .rs-bill-banner { border-radius: 12px; }
+    .rs-bill-overlay {
+        align-items: center;
+        text-align: center;
+        padding: 6%;
+    }
+    .rs-bill-amount { font-size: 2.4rem; }
+    .rs-bill-tagline { max-width: 100%; font-size: 0.8rem; }
+}
+body {
+    padding-top: 116px !important;
+}
+
+@media (max-width: 992px) {
+    body {
+        padding-top: 96px !important;
+    }
+  @media (max-width: 768px) {
+    .navbar-nav.categories {
+        display: flex !important;
+        flex-wrap: wrap !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 4px 12px 12px !important;
+        margin: 0 !important;
+    }
+    .navbar-nav.categories .nav-item {
+        display: inline-block !important;
+        width: auto !important;
+        margin: 0 !important;
+        flex-shrink: 0 !important;
+    }
+    .navbar-nav.categories .nav-link {
+        font-size: 14px !important;
+        padding: 8px 16px 8px 14px !important;
+        white-space: nowrap !important;
+    }
+    .navbar-nav.categories .nav-link::after {
+        border-width: 7px 0 7px 9px !important;
+        right: -9px !important;
+    }
+    .navbar-nav.categories .material-icons {
+        font-size: 16px !important;
+    }
+}
+  /* Force category pills into a wrapping row */
 .navbar-nav.categories,
 ul.navbar-nav.categories {
     display: flex !important;
@@ -312,159 +345,10 @@ ul.navbar-nav.categories .nav-link {
     border-radius: 999px !important;
 }
 
-/* ============================================
-   BODY OFFSET FOR FIXED NAVBAR
-   ============================================ */
-body {
-    padding-top: 116px !important;
-}
-
-/* ============================================
-   MOBILE
-   ============================================ */
-@media (max-width: 992px) {
-    body {
-        padding-top: 96px !important;
-    }
-}
-
+/* Mobile tweaks */
 @media (max-width: 768px) {
-    .rs-bill-banner { border-radius: 12px; }
-    .rs-bill-overlay {
-        align-items: center;
-        text-align: center;
-        padding: 6%;
-    }
-    .rs-bill-amount { font-size: 2.4rem; }
-    .rs-bill-tagline { max-width: 100%; font-size: 0.8rem; }
-
-    .rs-explore-title { font-size: 2rem !important; }
-    .rs-explore-fisherman { height: 90px; margin-bottom: -14px; }
-
     .navbar-nav.categories .nav-link,
     ul.navbar-nav.categories .nav-link {
-        font-size: 13px !important;
-        padding: 7px 14px 7px 12px !important;
-    }
-    .navbar-nav.categories .material-icons,
-    ul.navbar-nav.categories .material-icons {
-        font-size: 15px !important;
-    }
-}
-</style>
-
-<script>
-/* ============================================
-   REFERSATHI — Auto card color extraction
-   ============================================ */
-(function() {
-    function rgbToHsl(r, g, b) {
-        r /= 255; g /= 255; b /= 255;
-        const max = Math.max(r, g, b), min = Math.min(r, g, b);
-        let h, s, l = (max + min) / 2;
-
-        if (max === min) {
-            h = s = 0;
-        } else {
-            const d = max - min;
-            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-            switch (max) {
-                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
-                case g: h = (b - r) / d + 2; break;
-                case b: h = (r - g) / d + 4; break;
-            }
-            h /= 6;
-        }
-        return [h, s, l];
-    }
-
-    function hslToRgb(h, s, l) {
-        let r, g, b;
-        if (s === 0) {
-            r = g = b = l;
-        } else {
-            const hue2rgb = (p, q, t) => {
-                if (t < 0) t += 1;
-                if (t > 1) t -= 1;
-                if (t < 1/6) return p + (q - p) * 6 * t;
-                if (t < 1/2) return q;
-                if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
-                return p;
-            };
-            const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-            const p = 2 * l - q;
-            r = hue2rgb(p, q, h + 1/3);
-            g = hue2rgb(p, q, h);
-            b = hue2rgb(p, q, h - 1/3);
-        }
-        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
-    }
-
-    function extractDominantColor(img) {
-        try {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 50;
-            canvas.height = 50;
-            ctx.drawImage(img, 0, 0, 50, 50);
-
-            const data = ctx.getImageData(0, 0, 50, 50).data;
-            const buckets = {};
-            for (let i = 0; i < data.length; i += 4) {
-                const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];
-                if (a < 200) continue;
-                const [h, s, l] = rgbToHsl(r, g, b);
-                if (s < 0.15 || l < 0.15 || l > 0.9) continue;
-                const bucket = Math.round(h * 12) / 12;
-                buckets[bucket] = (buckets[bucket] || 0) + 1;
-            }
-
-            let topHue = null, topCount = 0;
-            for (const h in buckets) {
-                if (buckets[h] > topCount) {
-                    topCount = buckets[h];
-                    topHue = parseFloat(h);
-                }
-            }
-
-            if (topHue === null) return 'rgb(45, 45, 45)';
-
-            const [r, g, b] = hslToRgb(topHue, 0.65, 0.32);
-            return `rgb(${r}, ${g}, ${b})`;
-        } catch (err) {
-            return null;
-        }
-    }
-
-    function applyCardColor(img) {
-        const notraco = img.parentElement.querySelector('.notraco');
-        if (!notraco) return;
-
-        const manual = img.dataset.themeColor;
-        if (manual && manual.trim() !== '') {
-            notraco.style.background = manual;
-        } else {
-            const color = extractDominantColor(img);
-            if (color) notraco.style.background = color;
-        }
-
-        notraco.querySelectorAll('.card-title, .tile-description').forEach(el => {
-            el.style.color = '#ffffff';
-            el.style.textShadow = '0 1px 3px rgba(0,0,0,0.35)';
-        });
-        const arrow = notraco.querySelector('.fa-arrow-circle-right');
-        if (arrow) arrow.style.color = '#ffffff';
-    }
-
-    document.querySelectorAll('.card-pin.raco .card-img').forEach(img => {
-        if (img.complete && img.naturalWidth > 0) {
-            applyCardColor(img);
-        } else {
-            img.addEventListener('load', () => applyCardColor(img));
-        }
-    });
-})();
-</script>tegories .nav-link {
         font-size: 13px !important;
         padding: 7px 14px 7px 12px !important;
     }
