@@ -104,6 +104,19 @@ description: "A great collection of australian referal sites."
 </div>
 
 <style>
+
+  /* 1. Hide the collapsible hamburger button */
+.hamburger-menu-class { 
+    display: none !important; 
+}
+
+/* 2. Show the navigation links normally */
+.nav-links-container-class {
+    display: flex !important; /* or 'block', depending on your layout */
+    position: static !important; /* Removes any absolute/fixed positioning used for the mobile menu */
+    width: auto !important;
+    background: transparent !important;
+}
 /* ============================================
    REFERSATHI — Homepage
    ============================================ */
