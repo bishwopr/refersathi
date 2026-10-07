@@ -49,13 +49,6 @@ layout: default
     <p class="rs-post-desc">{{ page.description }}</p>
     {% endif %}
 
-    <!-- Big primary CTA -->
-    {% if page.affiliate_url and page.affiliate_url != "https://" and page.affiliate_url != "" %}
-    <a href="{{ page.affiliate_url }}" target="_blank" rel="nofollow noopener" class="rs-post-cta">
-      Get My ${{ page.reward_value }} Bonus →
-    </a>
-    {% endif %}
-
   </div>
 
   <!-- ============================================
@@ -68,6 +61,13 @@ layout: default
       {{ content }}
     </div>
 
+    <!-- Big primary CTA -->
+    {% if page.affiliate_url and page.affiliate_url != "https://" and page.affiliate_url != "" %}
+    <a href="{{ page.affiliate_url }}" target="_blank" rel="nofollow noopener" class="rs-post-cta">
+      Get My ${{ page.reward_value }} Bonus →
+    </a>
+    {% endif %}
+
     <p class="rs-post-footer-note">
       Offer available in eligible regions. Terms and conditions apply.
     </p>
@@ -75,7 +75,205 @@ layout: default
 
 </div>
 
+<!-- ============================================
+     SWIPE NAVIGATION
+     ============================================ -->
+
+<!-- First-visit hint -->
+<div class="rs-swipe-hint" id="rsSwipeHint">
+  <div class="rs-swipe-hint-arrows">
+    <span class="rs-swipe-arrow rs-swipe-arrow-left">👈</span>
+    <span class="rs-swipe-hint-text">Swipe left or right<br>to browse more offers</span>
+    <span class="rs-swipe-arrow rs-swipe-arrow-right">👉</span>
+  </div>
+  <button type="button" class="rs-swipe-hint-close" id="rsSwipeHintClose" aria-label="Close">
+    <i class="fa fa-times"></i>
+  </button>
+</div>
+
+<!-- Invisible nav destinations -->
+{% if page.previous.url %}
+  <div data-nav-prev="{{ page.previous.url | relative_url }}" id="rsNavPrev"></div>
+{% endif %}
+{% if page.next.url %}
+  <div data-nav-next="{{ page.next.url | relative_url }}" id="rsNavNext"></div>
+{% endif %}
+
+<!-- Swipe toast (feedback) -->
+<div class="rs-swipe-toast" id="rsSwipeToast"></div>
+
 <style>
+/* ============================================
+   SWIPE NAVIGATION
+   ============================================ */
+
+/* First-visit swipe hint — centered modal-style card */
+.rs-swipe-hint {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    color: #ffffff;
+    padding: 24px 26px 22px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+    z-index: 10000;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1.3),
+                opacity 0.35s ease;
+    max-width: calc(100vw - 48px);
+    width: 320px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.rs-swipe-hint.rs-swipe-hint-show {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.rs-swipe-hint-arrows {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    gap: 14px;
+}
+
+.rs-swipe-arrow {
+    font-size: 1.7rem;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.rs-swipe-arrow-left {
+    animation: rsSwipeLeft 1.4s ease-in-out infinite;
+}
+
+.rs-swipe-arrow-right {
+    animation: rsSwipeRight 1.4s ease-in-out infinite;
+}
+
+@keyframes rsSwipeLeft {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(-8px); }
+}
+
+@keyframes rsSwipeRight {
+    0%, 100% { transform: translateX(0); }
+    50%      { transform: translateX(8px); }
+}
+
+.rs-swipe-hint-text {
+    flex: 1;
+    line-height: 1.35;
+    font-size: 0.92rem;
+    color: #e2e8f0;
+    font-weight: 600;
+}
+
+.rs-swipe-hint-text br {
+    display: block;
+    margin-top: 2px;
+}
+
+.rs-swipe-hint-close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.rs-swipe-hint-close:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: scale(1.1);
+}
+
+/* "Got it" button via ::after */
+.rs-swipe-hint::after {
+    content: "Got it";
+    display: block;
+    padding: 8px 22px;
+    background: #38ef7d;
+    color: #0f4d3a;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.rs-swipe-hint::after:hover {
+    transform: translateY(-1px);
+    background: #4ff68e;
+}
+
+/* Toast feedback on swipe */
+.rs-swipe-toast {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: rgba(15, 23, 42, 0.9);
+    color: #ffffff;
+    padding: 16px 24px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.rs-swipe-toast.rs-swipe-toast-show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* Slide transition when navigating */
+.rs-post-wrap.rs-sliding-left {
+    animation: rsSlideOutLeft 0.3s ease forwards;
+}
+
+.rs-post-wrap.rs-sliding-right {
+    animation: rsSlideOutRight 0.3s ease forwards;
+}
+
+@keyframes rsSlideOutLeft {
+    to { transform: translateX(-30%); opacity: 0; }
+}
+
+@keyframes rsSlideOutRight {
+    to { transform: translateX(30%); opacity: 0; }
+}
+
 /* ============================================
    REFERSATHI — Post page (app-style)
    ============================================ */
@@ -220,6 +418,7 @@ layout: default
     letter-spacing: 0.2px;
     transition: transform 0.2s ease, background 0.2s ease;
     box-shadow: 0 6px 18px rgba(15, 23, 42, 0.25);
+    margin-top: 20px;
 }
 
 .rs-post-cta:hover {
@@ -249,14 +448,14 @@ layout: default
     font-size: 1rem;
     font-weight: 700;
     color: #1a1a1a;
-    margin: 18px 0 8px;
+    margin: 0 0 12px;
 }
 
 .rs-post-steps ol {
     list-style: none;
     counter-reset: rs-step;
     padding: 0;
-    margin: 0;
+    margin: 0 0 4px;
 }
 
 .rs-post-steps ol li {
@@ -308,7 +507,7 @@ layout: default
     font-size: 0.75rem;
     color: #999;
     text-align: center;
-    margin: 20px 0 0;
+    margin: 18px 0 0;
     line-height: 1.5;
 }
 
@@ -337,5 +536,129 @@ layout: default
         height: 28px;
         font-size: 0.85rem;
     }
+    .rs-swipe-hint {
+        width: 300px;
+        padding: 22px 22px 20px;
+    }
 }
 </style>
+
+<script>
+/* ============================================
+   REFERSATHI — Swipe navigation on posts
+   ============================================ */
+(function() {
+    var wrap  = document.querySelector('.rs-post-wrap');
+    var prev  = document.getElementById('rsNavPrev');
+    var next  = document.getElementById('rsNavNext');
+    var hint  = document.getElementById('rsSwipeHint');
+    var toast = document.getElementById('rsSwipeToast');
+
+    if (!wrap) return;
+
+    var prevUrl = prev ? prev.dataset.navPrev : null;
+    var nextUrl = next ? next.dataset.navNext : null;
+
+    // -------------------------------------------------------
+    // First-visit hint — shows only once per session
+    // -------------------------------------------------------
+    function dismissHint() {
+        if (!hint) return;
+        hint.classList.remove('rs-swipe-hint-show');
+        sessionStorage.setItem('rs_swipe_seen', '1');
+    }
+
+    if (hint && (prevUrl || nextUrl)) {
+        var seen = sessionStorage.getItem('rs_swipe_seen');
+        if (!seen) {
+            setTimeout(function() {
+                hint.classList.add('rs-swipe-hint-show');
+            }, 900);
+            setTimeout(dismissHint, 6900);
+        }
+
+        var closeBtn = document.getElementById('rsSwipeHintClose');
+        if (closeBtn) closeBtn.addEventListener('click', dismissHint);
+
+        hint.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'I') dismissHint();
+        });
+    }
+
+    // -------------------------------------------------------
+    // Swipe detection
+    // -------------------------------------------------------
+    var startX = 0, startY = 0, startTime = 0;
+    var MIN_DISTANCE = 80;
+    var MAX_TIME = 600;
+    var MAX_VERTICAL = 60;
+
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+        startTime = Date.now();
+    }, { passive: true });
+
+    document.addEventListener('touchend', function(e) {
+        if (!e.changedTouches.length) return;
+
+        var endX = e.changedTouches[0].clientX;
+        var endY = e.changedTouches[0].clientY;
+        var dx = endX - startX;
+        var dy = endY - startY;
+        var dt = Date.now() - startTime;
+
+        if (dt > MAX_TIME) return;
+        if (Math.abs(dy) > MAX_VERTICAL) return;
+        if (Math.abs(dx) < MIN_DISTANCE) return;
+
+        if (dx < 0 && nextUrl) {
+            dismissHint();
+            showToast('Next offer →');
+            navigate(nextUrl, 'rs-sliding-left');
+        } else if (dx > 0 && prevUrl) {
+            dismissHint();
+            showToast('← Previous offer');
+            navigate(prevUrl, 'rs-sliding-right');
+        } else if (dx < 0 && !nextUrl) {
+            showToast("You've reached the end 🎉");
+        } else if (dx > 0 && !prevUrl) {
+            showToast('This is the first offer');
+        }
+    }, { passive: true });
+
+    function showToast(text) {
+        if (!toast) return;
+        toast.textContent = text;
+        toast.classList.add('rs-swipe-toast-show');
+        setTimeout(function() {
+            toast.classList.remove('rs-swipe-toast-show');
+        }, 900);
+    }
+
+    function navigate(url, animClass) {
+        wrap.classList.add(animClass);
+        setTimeout(function() {
+            window.location.href = url;
+        }, 280);
+    }
+
+    // -------------------------------------------------------
+    // Desktop mouse-drag (for testing)
+    // -------------------------------------------------------
+    var mouseDownX = null;
+    document.addEventListener('mousedown', function(e) {
+        if (e.target.closest('a, button, input, textarea')) return;
+        mouseDownX = e.clientX;
+    });
+    document.addEventListener('mouseup', function(e) {
+        if (mouseDownX === null) return;
+        var dx = e.clientX - mouseDownX;
+        mouseDownX = null;
+        if (Math.abs(dx) < 100) return;
+        if (dx < 0 && nextUrl) { showToast('Next offer →'); navigate(nextUrl, 'rs-sliding-left'); }
+        if (dx > 0 && prevUrl) { showToast('← Previous offer'); navigate(prevUrl, 'rs-sliding-right'); }
+    });
+})();
+</script>
