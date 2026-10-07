@@ -9,22 +9,9 @@ affiliate_url: "https://invite.kraken.com/JDNW/p9pdk0ef"
 comments: true
 ---
 
-### 📋 Sign-Up Instructions
-
 1. Open the Kraken referral link provided below.
-2. Create your Kraken account using the referral link or enter referral code `gj35dh89`.
+2. Create your Kraken account using the referral link or enter referral code **gj35dh89**.
 3. Complete the required account verification and any qualifying actions shown by Kraken.
 4. Meet the applicable referral offer requirements to receive the eligible reward.
 
 The referral offer provides the opportunity for both the new customer and the referrer to receive rewards of up to A$350 each. Reward eligibility and the amount received depend on Kraken's applicable referral terms and qualifying requirements.
-
----
-
-<div style="text-align: center; margin: 35px 0;">
-  <a href="{{ page.affiliate_url }}" target="_blank" rel="nofollow noopener" style="background-color: #38ef7d; color: #08602b; padding: 16px 32px; text-decoration: none; font-weight: 800; border-radius: 50px; font-size: 1.15em; display: inline-block; box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3); transition: transform 0.2s; min-width: 250px;">
-    🤑 Snag This Deal
-  </a>
-</div>
-
----
-

@@ -1,37 +1,171 @@
-<!--  Replace top menu links here -->
+<!-- REFERSATHI — Icon Navbar Links -->
+<ul class="rs-nav-links">
+  <li class="rs-nav-item">
+    <a href="{{ site.baseurl }}/index.html" class="rs-nav-link">
+      <i class="material-icons">home</i>
+      <span>Home</span>
+    </a>
+  </li>
+  <li class="rs-nav-item">
+    <a href="{{ site.baseurl }}/categories.html" class="rs-nav-link">
+      <i class="material-icons">grid_view</i>
+      <span>Categories</span>
+    </a>
+  </li>
+  <li class="rs-nav-item">
+    <a href="{{ site.baseurl }}/contact.html" class="rs-nav-link">
+      <i class="material-icons">mail</i>
+      <span>Contact</span>
+    </a>
+  </li>
+  <li class="rs-nav-item">
+    <a href="{{ site.baseurl }}/about.html" class="rs-nav-link">
+      <i class="material-icons">person</i>
+      <span>About</span>
+    </a>
+  </li>
+</ul>
 
-<li class="nav-item">
-    <a class="nav-link rs-nav-link active" href="{{site.baseurl}}/index.html">Home</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link rs-nav-link" href="{{site.baseurl}}/categories.html">Categories</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link rs-nav-link" href="{{site.baseurl}}/contact.html">Contact</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link rs-nav-link d-flex align-items-center" href="{{site.baseurl}}/about.html">
-        <img class="rounded-circle mr-2" src="{{site.baseurl}}/{{site.avatar}}" width="32" height="32" alt="About">
-        <span>About</span>
-    </a>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link rs-nav-link" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-ellipsis-h"></i>
-    </a>
-    <div class="dropdown-menu dropdown-menu-right rs-dropdown shadow-lg" aria-labelledby="dropdown02">
-        <h6 class="dropdown-header">About This Site</h6>
-        <div class="dropdown-divider"></div>
-        <div class="px-3 py-2 text-center">
-            <p class="mb-1" style="font-size: 0.9rem; color: #555;">
-                Made with <i class="fa fa-heart text-danger"></i> using
-            </p>
-            <a href="https://jekyllrb.com" target="_blank" rel="noopener" class="font-weight-bold" style="color: #11998e; text-decoration: none; font-size: 1rem;">
-                Jekyll
-            </a>
-            <p class="mb-0 mt-2" style="font-size: 0.75rem; color: #999;">
-                © ReferSathi
-            </p>
-        </div>
-    </div>
-</li>
+<style>
+/* ============================================
+   ICON NAV LINKS — inline styles so they work
+   no matter what other CSS is loaded
+   ============================================ */
+
+.rs-nav-links,
+ul.rs-nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+    list-style: none !important;
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.rs-nav-item,
+ul.rs-nav-links .rs-nav-item {
+    display: inline-block !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    list-style-type: none !important;
+}
+
+.rs-nav-item::before,
+.rs-nav-item::after,
+.rs-nav-item::marker,
+ul.rs-nav-links li::before,
+ul.rs-nav-links li::marker {
+    display: none !important;
+    content: none !important;
+}
+
+.rs-nav-link,
+ul.rs-nav-links .rs-nav-link {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 8px 14px !important;
+    min-width: 68px !important;
+    border-radius: 12px !important;
+    text-decoration: none !important;
+    color: #1f1f1f !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    background: transparent !important;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease !important;
+}
+
+.rs-nav-link .material-icons,
+ul.rs-nav-links .rs-nav-link .material-icons {
+    font-family: 'Material Icons' !important;
+    font-size: 22px !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    line-height: 1 !important;
+    color: #11998e !important;
+    display: inline-block !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+.rs-nav-link span {
+    display: block !important;
+    margin-top: 2px !important;
+}
+
+.rs-nav-link:hover,
+ul.rs-nav-links .rs-nav-link:hover {
+    background: #f1f3f4 !important;
+    color: #11998e !important;
+    transform: translateY(-1px) !important;
+}
+
+.rs-nav-link.rs-nav-active,
+ul.rs-nav-links .rs-nav-link.rs-nav-active {
+    background: #e8f5ef !important;
+    color: #0f4d3a !important;
+}
+
+.rs-nav-link.rs-nav-active .material-icons,
+ul.rs-nav-links .rs-nav-link.rs-nav-active .material-icons {
+    color: #11998e !important;
+}
+
+@media (max-width: 768px) {
+    .rs-nav-links,
+    ul.rs-nav-links {
+        gap: 2px !important;
+    }
+    .rs-nav-link,
+    ul.rs-nav-links .rs-nav-link {
+        padding: 6px 8px !important;
+        min-width: 52px !important;
+        font-size: 0.62rem !important;
+    }
+    .rs-nav-link .material-icons,
+    ul.rs-nav-links .rs-nav-link .material-icons {
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .rs-nav-link,
+    ul.rs-nav-links .rs-nav-link {
+        min-width: 46px !important;
+        padding: 6px 5px !important;
+        font-size: 0.55rem !important;
+    }
+    .rs-nav-link .material-icons,
+    ul.rs-nav-links .rs-nav-link .material-icons {
+        font-size: 18px !important;
+    }
+}
+</style>
+
+<script>
+(function() {
+    var path = window.location.pathname;
+    document.querySelectorAll('.rs-nav-link').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (!href) return;
+        var cleanHref = href.replace(/^.*\/refersathi\//, '/').replace(/\/$/, '');
+        var cleanPath = path.replace(/^\/refersathi\//, '/').replace(/\/$/, '');
+        if (cleanHref === cleanPath ||
+            (cleanPath === '/' && cleanHref === '/index.html') ||
+            (cleanPath === '/index.html' && cleanHref === '/index.html')) {
+            link.classList.add('rs-nav-active');
+        }
+    });
+})();
+</script>

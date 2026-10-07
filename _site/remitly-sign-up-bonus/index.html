@@ -52,177 +52,178 @@
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarsDefault">        
-    	<ul class="navbar-nav mr-auto align-items-center">            
-            <script src="/refersathi/assets/js/lunr.js"></script>
+    	<ul class="navbar-nav ml-auto align-items-center">
+    		<!-- REFERSATHI — Icon Navbar Links -->
+<ul class="rs-nav-links">
+  <li class="rs-nav-item">
+    <a href="/refersathi/index.html" class="rs-nav-link">
+      <i class="material-icons">home</i>
+      <span>Home</span>
+    </a>
+  </li>
+  <li class="rs-nav-item">
+    <a href="/refersathi/categories.html" class="rs-nav-link">
+      <i class="material-icons">grid_view</i>
+      <span>Categories</span>
+    </a>
+  </li>
+  <li class="rs-nav-item">
+    <a href="/refersathi/contact.html" class="rs-nav-link">
+      <i class="material-icons">mail</i>
+      <span>Contact</span>
+    </a>
+  </li>
+  <li class="rs-nav-item">
+    <a href="/refersathi/about.html" class="rs-nav-link">
+      <i class="material-icons">person</i>
+      <span>About</span>
+    </a>
+  </li>
+</ul>
 
-<script>
-$(function() {
-    $("#lunrsearchresults").on('click', '#btnx', function () {
-        $('#lunrsearchresults').hide( 1000 );
-        $( "body" ).removeClass( "modal-open" );
-    });
-});
-    
-
-var documents = [{
-    "id": 0,
-    "url": "http://localhost:4000/refersathi/about.html",
-    "title": "About ReferSathi",
-    "body": "   Your Premium Gateway to Australian Rewards:      Welcome to ReferSathi! We are dedicated to hunting down, verifying, and curating the absolute best sign-up deals, cash back rewards, and fee-free transfer promotions across Australia. Whether you are opening a new digital bank account, switching apps, or jumping onto an investment platform, we ensure you capture maximum value from day one.          🛡️   100% Verified Deals:    Every referral link hosted on our platform is tested daily to ensure tracking parameters are active and working perfectly.           📋   Step-by-Step Guides:    We don't just dump raw links. Every offer features clean, detailed instructions to guarantee your payout hits your account safely.          💬   Active Discussion:    Have a question or running into an issue? Leverage our built-in community comment sections to discuss steps with other users live.     🎯 How ReferSathi Works:       1. Browse Tiles   Explore our clean, Instagram-style grid configuration on the homepage to find the highest-paying reward payouts instantly.        2. Read Blueprint   Review the curated onboarding steps and tap our active promotional tracking button targets safely.        3. Claim Cash   Complete your signup registrations, trigger the platform milestones, and capture your sign-up earnings effortlessly!     Ready to Maximize Your Earnings?:  Check out our live stream dashboard to claim your first set of payouts completely free.    🚀 Explore Active Referral Tiles "
-    }, {
-    "id": 1,
-    "url": "http://localhost:4000/refersathi/categories.html",
-    "title": "Categories",
-    "body": "        Categories          {% include menu-categories. html %}          {% for category in site. categories %}       # {{ category[0] }}:         {% assign pages_list = category[1] %}    {% for post in pages_list %}     {% if post. title != null %}       {% if group == null or group == post. group %}        {% include card-post. html %}       {% endif %}     {% endif %}    {% endfor %}    {% assign pages_list = nil %}    {% assign group = nil %}  {% endfor %}    "
-    }, {
-    "id": 2,
-    "url": "http://localhost:4000/refersathi/contact.html",
-    "title": "Contact",
-    "body": "     🕊️                    Send us a letter:     Drop us a message — our pigeon will deliver it.                                                                      Send Letter                  ✉      ✉️  Message Sent!:   Our pigeon is flying it over now.       ✅  Delivered!:   Your letter has safely reached ReferSathi. We'll get back to you shortly.   Returning home…   "
-    }, {
-    "id": 3,
-    "url": "http://localhost:4000/refersathi/",
-    "title": "ReferSathi",
-    "body": "{% assign total_rewards = 0 %}{% for post in site. posts %} {% if post. reward_value %}  {% assign total_rewards = total_rewards | plus: post. reward_value %} {% endif %}{% endfor %}                    Total Available Bonuses up-to     ${{ total_rewards }}     Click a service card below, follow instructions, and capture your instant payouts!                    Explore           {% include menu-categories. html %}             {% for post in paginator. posts reversed %}    {% include card-post. html %}   {% endfor %}         {% if paginator. total_pages &gt; 1 %}       {% if paginator. previous_page %}     &laquo; Prev    {% else %}     &laquo; Prev    {% endif %}    {% for page in (1. . paginator. total_pages) %}     {% if page == paginator. page %}      {{ page }}     {% elsif page == 1 %}      {{ page }}     {% else %}      {{ page }}     {% endif %}    {% endfor %}    {% if paginator. next_page %}     Next &raquo;    {% else %}     Next &raquo;    {% endif %}      {% endif %}   tegories . nav-link {    font-size: 13px !important;    padding: 7px 14px 7px 12px !important;  }  . navbar-nav. categories . material-icons,  ul. navbar-nav. categories . material-icons {    font-size: 15px !important;  }}}&lt;/style&gt;   if (max === min) {    h = s = 0;  } else {    const d = max - min;    s = l &gt; 0. 5 ? d / (2 - max - min) : d / (max + min);    switch (max) {      case r: h = (g - b) / d + (g &lt; b ? 6 : 0); break;      case g: h = (b - r) / d + 2; break;      case b: h = (r - g) / d + 4; break;    }    h /= 6;  }  return [h, s, l];}function hslToRgb(h, s, l) {  let r, g, b;  if (s === 0) {    r = g = b = l;  } else {    const hue2rgb = (p, q, t) =&gt; {      if (t &lt; 0) t += 1;      if (t &gt; 1) t -= 1;      if (t &lt; 1/6) return p + (q - p) * 6 * t;      if (t &lt; 1/2) return q;      if (t &lt; 2/3) return p + (q - p) * (2/3 - t) * 6;      return p;    };    const q = l &lt; 0. 5 ? l * (1 + s) : l + s - l * s;    const p = 2 * l - q;    r = hue2rgb(p, q, h + 1/3);    g = hue2rgb(p, q, h);    b = hue2rgb(p, q, h - 1/3);  }  return [Math. round(r * 255), Math. round(g * 255), Math. round(b * 255)];}function extractDominantColor(img) {  try {    const canvas = document. createElement('canvas');    const ctx = canvas. getContext('2d');    canvas. width = 50;    canvas. height = 50;    ctx. drawImage(img, 0, 0, 50, 50);    const data = ctx. getImageData(0, 0, 50, 50). data;    const buckets = {};    for (let i = 0; i &lt; data. length; i += 4) {      const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3];      if (a &lt; 200) continue;      const [h, s, l] = rgbToHsl(r, g, b);      if (s &lt; 0. 15 || l &lt; 0. 15 || l &gt; 0. 9) continue;      const bucket = Math. round(h * 12) / 12;      buckets[bucket] = (buckets[bucket] || 0) + 1;    }    let topHue = null, topCount = 0;    for (const h in buckets) {      if (buckets[h] &gt; topCount) {        topCount = buckets[h];        topHue = parseFloat(h);      }    }    if (topHue === null) return 'rgb(45, 45, 45)';    const [r, g, b] = hslToRgb(topHue, 0. 65, 0. 32);    return `rgb(${r}, ${g}, ${b})`;  } catch (err) {    return null;  }}function applyCardColor(img) {  const notraco = img. parentElement. querySelector('. notraco');  if (!notraco) return;  const manual = img. dataset. themeColor;  if (manual &amp;&amp; manual. trim() !== '') {    notraco. style. background = manual;  } else {    const color = extractDominantColor(img);    if (color) notraco. style. background = color;  }  notraco. querySelectorAll('. card-title, . tile-description'). forEach(el =&gt; {    el. style. color = '#ffffff';    el. style. textShadow = '0 1px 3px rgba(0,0,0,0. 35)';  });  const arrow = notraco. querySelector('. fa-arrow-circle-right');  if (arrow) arrow. style. color = '#ffffff';}document. querySelectorAll('. card-pin. raco . card-img'). forEach(img =&gt; {  if (img. complete &amp;&amp; img. naturalWidth &gt; 0) {    applyCardColor(img);  } else {    img. addEventListener('load', () =&gt; applyCardColor(img));  }}); })(); &lt;/script&gt;"
-    }, {
-    "id": 4,
-    "url": "http://localhost:4000/refersathi/pg/",
-    "title": "Private Post Generator",
-    "body": "   🛠️ ReferSathi Markdown Generator:        Offer Title          Short Description              Reward Value (\$)                  Choose Cover Image                  Affiliate / Tracking URL          Sign-Up Instructions (Step-by-Step)          🚀 Generate &amp; Copy Code          ⚠️ Image Copy Required: Remember to paste the image from your clipboard into your assets/images/ folder, or copy your chosen image file into that directory manually!    📋 Generated Markdown Code (Copied to Clipboard!)         Next Step: Create a new file inside _posts/ named and paste this code inside it!   "
-    }, {
-    "id": 5,
-    "url": "http://localhost:4000/refersathi/privacy-policy.html",
-    "title": "Privacy Policy",
-    "body": "”{{site. name}}” takes your privacy seriously. To better protect your privacy we provide this privacy policy notice explaining the way your personal information is collected and used. Collection of Routine Information: This website track basic information about their visitors. This information includes, but is not limited to, IP addresses, browser details, timestamps and referring pages. None of this information can personally identify specific visitor to this website. The information is tracked for routine administration and maintenance purposes. Cookies: Where necessary, this website uses cookies to store information about a visitor’s preferences and history in order to better serve the visitor and/or present the visitor with customized content. Advertisement and Other Third Parties: Advertising partners and other third parties may use cookies, scripts and/or web beacons to track visitor activities on this website in order to display advertisements and other useful information. Such tracking is done directly by the third parties through their own servers and is subject to their own privacy policies. This website has no access or control over these cookies, scripts and/or web beacons that may be used by third parties. Learn how to opt out of Google’s cookie usage. Links to Third Party Websites: We have included links on this website for your use and reference. We are not responsible for the privacy policies on these websites. You should be aware that the privacy policies of these websites may differ from our own. Security: The security of your personal information is important to us, but remember that no method of transmission over the Internet, or method of electronic storage, is 100% secure. While we strive to use commercially acceptable means to protect your personal information, we cannot guarantee its absolute security. Changes To This Privacy Policy: This Privacy Policy is effective and will remain in effect except with respect to any changes in its provisions in the future, which will be in effect immediately after being posted on this page. We reserve the right to update or change our Privacy Policy at any time and you should check this Privacy Policy periodically. If we make any material changes to this Privacy Policy, we will notify you either through the email address you have provided us, or by placing a prominent notice on our website. Contact Information: For any questions or concerns regarding the privacy policy, please contact us here. "
-    }, {
-    "id": 6,
-    "url": "http://localhost:4000/refersathi/robots.txt",
-    "title": "",
-    "body": "      Sitemap: {{ “sitemap. xml”   absolute_url }}   "
-    }, {
-    "id": 7,
-    "url": "http://localhost:4000/refersathi/up-bank-referral-get-18-when-you-join/",
-    "title": "Up Bank referral: Get $18 when you join",
-    "body": "2026/10/04 - 📋 Sign-Up Instructions:  Open the Up Bank referral link provided below.  Download the Up app and start a new account using the referral link.  Complete your account registration and identity verification using the invited phone number.  Complete any qualifying requirements shown in the Up app to receive the referral bonus. Under the promotional offer shown in the Up app, both the new customer and the referring customer receive $18 when the new customer joins. The bonus is paid after the new customer successfully completes the required sign-up process and qualifying criteria.    🤑 Snag This Deal "
-    }, {
-    "id": 8,
-    "url": "http://localhost:4000/refersathi/ubank-sign-up-bonus/",
-    "title": "Ubank sign up bonus",
-    "body": "2026/10/04 - 📋 Sign-Up Instructions:  Download the Ubank app from the App Store or Google Play Store.  Begin the account creation process and enter the referral code W4LW4WH when prompted.  Complete your registration details and verify your identity to fully activate the account.  Make at least 5 eligible card transactions using your physical or digital card within 30 days. Your $30 bonus will be deposited directly into your newly created Spend account once all transaction verification rules are completed. This offer is available to new users aged 18 and older.  📌 Referral code: W4LW4WH — make sure to enter it when signing up.    🤑 Snag This Deal "
-    }, {
-    "id": 9,
-    "url": "http://localhost:4000/refersathi/remitly-sign-up-bonus/",
-    "title": "Remitly sign up bonus",
-    "body": "2026/10/04 - 📋 Sign-Up Instructions:  Click the link below to visit the Remitly promotional page.  Create a new account and select your destination country.  Set up your first money transfer of $100 or more.  Complete the transfer to automatically apply your $10 discount and special rate. Your $10 reward is applied instantly as a discount on your very first qualifying transaction. Zero transfer fees will also be locked in automatically for this initial send.    🤑 Snag This Deal "
-    }, {
-    "id": 10,
-    "url": "http://localhost:4000/refersathi/kraken-referral-get-up-to-a350-in-rewards/",
-    "title": "Kraken referral: Get up to A$350 in rewards",
-    "body": "2026/10/04 - 📋 Sign-Up Instructions:  Open the Kraken referral link provided below.  Create your Kraken account using the referral link or enter referral code gj35dh89.  Complete the required account verification and any qualifying actions shown by Kraken.  Meet the applicable referral offer requirements to receive the eligible reward. The referral offer provides the opportunity for both the new customer and the referrer to receive rewards of up to A$350 each. Reward eligibility and the amount received depend on Kraken’s applicable referral terms and qualifying requirements.    🤑 Snag This Deal "
-    }, {
-    "id": 11,
-    "url": "http://localhost:4000/refersathi/coinspot-sign-up-bonus/",
-    "title": "CoinSpot sign up bonus",
-    "body": "2026/10/04 - 📋 Sign-Up Instructions:  Click the link below to visit the CoinSpot registration page.  Fill out the registration form and ensure the code REFV4YQVZ is entered in the referral code field.  Complete the standard verification process to fully activate your digital asset account.  Execute your very first deposit of fiat currency using any available AUD payment method. Your free $10 worth of Bitcoin (BTC) is credited directly to your secure account wallet upon successful completion of your first AUD deposit. This welcome bonus requires a fully verified identity profile to successfully claim the digital asset reward.    🚀 Claim Payout Credit "
-    }, {
-    "id": 12,
-    "url": "http://localhost:4000/refersathi/ing/",
-    "title": "Signup with ING bank and score 100$",
-    "body": "2026/01/04 - 📋 Sign-Up Instructions: 1Open an Orange Everyday at ing. com. au/everyday and enter the promo code you give them in the box at the end of the online form. 2Deposit $1,000+ from an external source into their new Orange Everyday account within a calendar month. 3Make 5+ settled (not pending) purchases using their new Orange Everyday card within any calendar month. 4Open a Savings Maximiser (if they don’t have one already) and activate it by depositing any amount into it. Once all steps are completed we’ll pop a $100 bonus into both yours and your friends’ Orange Everyday accounts. This can take up to 30 days to be paid and in some cases it may take longer. You can spend or save the $100 however you like, maybe some new shoes or pickle ball lessons. . if that’s your thing. Think of it as a little thank you for referring us.    🤑 Snag This Deal "
-    }];
-
-var idx = lunr(function () {
-    this.ref('id')
-    this.field('title')
-    this.field('body')
-
-    documents.forEach(function (doc) {
-        this.add(doc)
-    }, this)
-});
-
-
-    
-function lunr_search(term) {
-    $('#lunrsearchresults').show( 1000 );
-    $( "body" ).addClass( "modal-open" );
-    
-    document.getElementById('lunrsearchresults').innerHTML = '<div id="resultsmodal" class="modal fade show d-block"  tabindex="-1" role="dialog" aria-labelledby="resultsmodal"> <div class="modal-dialog shadow-lg" role="document"> <div class="modal-content"> <div class="modal-header" id="modtit"> <button type="button" class="close" id="btnx" data-dismiss="modal" aria-label="Close"> &times; </button> </div> <div class="modal-body"> <ul class="mb-0"> </ul>    </div> <div class="modal-footer"><button id="btnx" type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button></div></div> </div></div>';
-    if(term) {
-        document.getElementById('modtit').innerHTML = "<h5 class='modal-title'>Search results for '" + term + "'</h5>" + document.getElementById('modtit').innerHTML;
-        //put results on the screen.
-        var results = idx.search(term);
-        if(results.length>0){
-            //console.log(idx.search(term));
-            //if results
-            for (var i = 0; i < results.length; i++) {
-                // more statements
-                var ref = results[i]['ref'];
-                var url = documents[ref]['url'];
-                var title = documents[ref]['title'];
-                var body = documents[ref]['body'].substring(0,160)+'...';
-                document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML + "<li class='lunrsearchresult'><a href='" + url + "'><span class='title'>" + title + "</span><br /><small><span class='body'>"+ body +"</span><br /><span class='url'>"+ url +"</span></small></a></li>";
-            }
-        } else {
-            document.querySelectorAll('#lunrsearchresults ul')[0].innerHTML = "<li class='lunrsearchresult'>Sorry, no results found. Close & try a different search!</li>";
-        }
-    }
-    return false;
-}
-</script>
 <style>
-    .lunrsearchresult .title {color: #d9230f;}
-    .lunrsearchresult .url {color: silver;}
-    .lunrsearchresult a {display: block; color: #777;}
-    .lunrsearchresult a:hover, .lunrsearchresult a:focus {text-decoration: none;}
-    .lunrsearchresult a:hover .title {text-decoration: underline;}
+/* ============================================
+   ICON NAV LINKS — inline styles so they work
+   no matter what other CSS is loaded
+   ============================================ */
+
+.rs-nav-links,
+ul.rs-nav-links {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 4px !important;
+    list-style: none !important;
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.rs-nav-item,
+ul.rs-nav-links .rs-nav-item {
+    display: inline-block !important;
+    float: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+    list-style-type: none !important;
+}
+
+.rs-nav-item::before,
+.rs-nav-item::after,
+.rs-nav-item::marker,
+ul.rs-nav-links li::before,
+ul.rs-nav-links li::marker {
+    display: none !important;
+    content: none !important;
+}
+
+.rs-nav-link,
+ul.rs-nav-links .rs-nav-link {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    padding: 8px 14px !important;
+    min-width: 68px !important;
+    border-radius: 12px !important;
+    text-decoration: none !important;
+    color: #1f1f1f !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    background: transparent !important;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease !important;
+}
+
+.rs-nav-link .material-icons,
+ul.rs-nav-links .rs-nav-link .material-icons {
+    font-family: 'Material Icons' !important;
+    font-size: 22px !important;
+    font-weight: normal !important;
+    font-style: normal !important;
+    line-height: 1 !important;
+    color: #11998e !important;
+    display: inline-block !important;
+    -webkit-font-smoothing: antialiased !important;
+}
+
+.rs-nav-link span {
+    display: block !important;
+    margin-top: 2px !important;
+}
+
+.rs-nav-link:hover,
+ul.rs-nav-links .rs-nav-link:hover {
+    background: #f1f3f4 !important;
+    color: #11998e !important;
+    transform: translateY(-1px) !important;
+}
+
+.rs-nav-link.rs-nav-active,
+ul.rs-nav-links .rs-nav-link.rs-nav-active {
+    background: #e8f5ef !important;
+    color: #0f4d3a !important;
+}
+
+.rs-nav-link.rs-nav-active .material-icons,
+ul.rs-nav-links .rs-nav-link.rs-nav-active .material-icons {
+    color: #11998e !important;
+}
+
+@media (max-width: 768px) {
+    .rs-nav-links,
+    ul.rs-nav-links {
+        gap: 2px !important;
+    }
+    .rs-nav-link,
+    ul.rs-nav-links .rs-nav-link {
+        padding: 6px 8px !important;
+        min-width: 52px !important;
+        font-size: 0.62rem !important;
+    }
+    .rs-nav-link .material-icons,
+    ul.rs-nav-links .rs-nav-link .material-icons {
+        font-size: 20px !important;
+    }
+}
+
+@media (max-width: 400px) {
+    .rs-nav-link,
+    ul.rs-nav-links .rs-nav-link {
+        min-width: 46px !important;
+        padding: 6px 5px !important;
+        font-size: 0.55rem !important;
+    }
+    .rs-nav-link .material-icons,
+    ul.rs-nav-links .rs-nav-link .material-icons {
+        font-size: 18px !important;
+    }
+}
 </style>
 
-
-
-
-<form class="bd-search hidden-sm-down" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
-<input type="text" class="form-control bg-graylight border-0 font-weight-bold"  id="lunrsearch" name="q" value="" placeholder="Type and hit enter..."> 
-</form>    		
-    	</ul>
-    	<ul class="navbar-nav ml-auto align-items-center">
-    		<!--  Replace top menu links here -->
-
-<li class="nav-item">
-    <a class="nav-link rs-nav-link active" href="/refersathi/index.html">Home</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link rs-nav-link" href="/refersathi/categories.html">Categories</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link rs-nav-link" href="/refersathi/contact.html">Contact</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link rs-nav-link d-flex align-items-center" href="/refersathi/about.html">
-        <img class="rounded-circle mr-2" src="/refersathi/assets/images/sal.jpg" width="32" height="32" alt="About">
-        <span>About</span>
-    </a>
-</li>
-<li class="nav-item dropdown">
-    <a class="nav-link rs-nav-link" href="#" id="dropdown02" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fa fa-ellipsis-h"></i>
-    </a>
-    <div class="dropdown-menu dropdown-menu-right rs-dropdown shadow-lg" aria-labelledby="dropdown02">
-        <h6 class="dropdown-header">About This Site</h6>
-        <div class="dropdown-divider"></div>
-        <div class="px-3 py-2 text-center">
-            <p class="mb-1" style="font-size: 0.9rem; color: #555;">
-                Made with <i class="fa fa-heart text-danger"></i> using
-            </p>
-            <a href="https://jekyllrb.com" target="_blank" rel="noopener" class="font-weight-bold" style="color: #11998e; text-decoration: none; font-size: 1rem;">
-                Jekyll
-            </a>
-            <p class="mb-0 mt-2" style="font-size: 0.75rem; color: #999;">
-                © ReferSathi
-            </p>
-        </div>
-    </div>
-</li>
+<script>
+(function() {
+    var path = window.location.pathname;
+    document.querySelectorAll('.rs-nav-link').forEach(function(link) {
+        var href = link.getAttribute('href');
+        if (!href) return;
+        var cleanHref = href.replace(/^.*\/refersathi\//, '/').replace(/\/$/, '');
+        var cleanPath = path.replace(/^\/refersathi\//, '/').replace(/\/$/, '');
+        if (cleanHref === cleanPath ||
+            (cleanPath === '/' && cleanHref === '/index.html') ||
+            (cleanPath === '/index.html' && cleanHref === '/index.html')) {
+            link.classList.add('rs-nav-active');
+        }
+    });
+})();
+</script>
 
     	</ul>
     </div>
@@ -289,9 +290,7 @@ function lunr_search(term) {
     <h2 class="rs-post-section-title">How it works</h2>
 
     <div class="rs-post-steps">
-      <h3 id="-sign-up-instructions">📋 Sign-Up Instructions</h3>
-
-<ol>
+      <ol>
   <li>Click the link below to visit the Remitly promotional page.</li>
   <li>Create a new account and select your destination country.</li>
   <li>Set up your first money transfer of $100 or more.</li>
@@ -300,15 +299,6 @@ function lunr_search(term) {
 
 <p>Your $10 reward is applied instantly as a discount on your very first qualifying transaction. Zero transfer fees will also be locked in automatically for this initial send.</p>
 
-<hr />
-
-<div style="text-align: center; margin: 35px 0;">
-  <a href="https://remit.ly/1tgqbvvd" target="_blank" rel="nofollow noopener" style="background-color: #38ef7d; color: #08602b; padding: 16px 32px; text-decoration: none; font-weight: 800; border-radius: 50px; font-size: 1.15em; display: inline-block; box-shadow: 0 4px 15px rgba(56, 239, 125, 0.3); transition: transform 0.2s; min-width: 250px;">
-    🤑 Snag This Deal
-  </a>
-</div>
-
-<hr />
 
     </div>
 
