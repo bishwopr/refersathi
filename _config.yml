@@ -16,6 +16,8 @@ baseurl: "/refersathi"
 # 🌟 PERMALINK PATTERN: Keeps your inner page links clean and direct
 permalink: /:title/
 
+future: true
+
 disqus: "refersathi"
 
 include: ["_pages"]
