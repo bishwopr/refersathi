@@ -5,7 +5,7 @@ description: "Sign up for Revolut using our link to score a $50 cash split plus 
 image: "assets/images/revolut.png"
 categories: [ finance, apps, travel ]
 reward_value: 80
-affiliate_url: "https://revolut.com"
+affiliate_url:"https://revolut.com/referral/?referral-code=ashishblzf!OCT1-26-AR-AU-SAV-H2&geo-redirect"
 comments: true
 ---
 
